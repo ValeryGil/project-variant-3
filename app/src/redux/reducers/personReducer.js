@@ -1,4 +1,4 @@
-import { GET_USER_ID, LOGOUT, SIGN_IN, SIGN_UP } from "../types/personTypes"
+import { GET_USER_ID, LOGOUT, SIGN_IN } from "../types/personTypes"
 
 export const personReducer = (store = {}, action) => {
   switch (action.type) {
@@ -7,12 +7,6 @@ export const personReducer = (store = {}, action) => {
 		    ...store,
 		    ...action.payload
 	    }
-
-    case SIGN_UP:
-      return {
-        ...store,
-        ...action.payload
-      }
 
     case LOGOUT:
       return {

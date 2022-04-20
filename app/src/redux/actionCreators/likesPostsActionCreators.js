@@ -1,8 +1,8 @@
 import { API_TOKEN } from "../../tokens"
-import { DELETE_LIKE_POST, SET_LIKE_POST } from "../types/likesTypes"
+import { LIKE_POST } from "../types/postsTypes"
 
 export const setLikePost = (_id) => ({
-    type: SET_LIKE_POST,
+    type: LIKE_POST,
     payload: _id,
   })
   
@@ -18,9 +18,9 @@ export const setLikePostQuery = (_id) => async (dispatch) => {
   dispatch(setLikePost(postsFromApi))
 }
 
-export const deleteLikePost = (_id) => ({
-  type: DELETE_LIKE_POST,
-  payload: _id,
+export const deleteLikePost = (postsFromApi) => ({
+  type: LIKE_POST,
+  payload: postsFromApi,
 })
 
 export const deleteLikePostQuery = (_id) => async (dispatch) => {
@@ -31,5 +31,6 @@ export const deleteLikePostQuery = (_id) => async (dispatch) => {
       'Content-Type': 'application/json',
   }})
   const postsFromApi = await response.json()
+  console.log({postsFromApi})
   dispatch(deleteLikePost(postsFromApi))
 }

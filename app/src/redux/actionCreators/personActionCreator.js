@@ -21,25 +21,16 @@ export const signInQuery = ({ email, password, cb }) => async (dispatch) => {
   typeof cb === 'function' && cb();
 };
 
-export const signUp = (person) => ({
-  type: SIGN_UP,
-  payload: person,
-});
-
-export const signUpQuery = ({ email, password, name, cb }) => async (dispatch) => {
+export const signUpQuery = ({ email, password, successCb, errorCb }) => async (dispatch) => {
   const response = await axiosInstance.post("signup", {
-    name,
     email,
     password,
   });
-  const person = response.data;
-  dispatch(
-    signUp({
-      ...person.data,
-      token: person.token,
-    })
-  );
-  typeof cb === 'function' && cb();
+  if (response.status === 201) {
+    dispatch(signInQuery({ email, password, cb: successCb }))
+  } else {
+    errorCb('Error')
+  }
 };
 
 export const logOutUser = () => (dispatch) => {

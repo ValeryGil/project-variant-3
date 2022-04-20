@@ -43,6 +43,8 @@ export default function PostsItem({ image, title, author, text, likes, _id }) {
   }
 
   const likePostHandler = () => {
+    console.log({userId, likes})
+    console.log(!likes.includes(userId))
     if (!likes.includes(userId)) {
       dispatch(setLikePostQuery(_id))
     } else {
@@ -89,8 +91,10 @@ export default function PostsItem({ image, title, author, text, likes, _id }) {
           <IconButton aria-label="share">
             <ShareIcon />
           </IconButton>
-          <Button onClick={() => navigate(`/posts/${_id}`)}>Detail</Button>
-          <Button onClick={deleteHandler}>Delete</Button>
+          <CardActions spacing={2}>
+            <Button variant="contained" aria-label="outlined primary button group" onClick={() => navigate(`/posts/${_id}`)}>Go to Post</Button>
+            <Button variant="contained" aria-label="outlined primary button group" sx={{ bgcolor: red[500] }} onClick={deleteHandler}>Delete Post</Button>
+          </CardActions>
           <ExpandMore
             expand={expanded}
             onClick={handleExpandClick}

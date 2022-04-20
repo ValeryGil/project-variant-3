@@ -27,11 +27,13 @@ export default function SignUp() {
     const data = new FormData(event.currentTarget);
     dispatch(
       signUpQuery({
-        name: data.get("name"),
         email: data.get("email"),
         password: data.get("password"),
-        cb: () => {
+        successCb: () => {
           navigate(from, { replace: true });
+        },
+        errorCb: (message) => {
+          window.alert(message)
         },
       })
     );
@@ -57,17 +59,6 @@ export default function SignUp() {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="Name"
-                  autoFocus
-                />
-              </Grid>
               <Grid item xs={12}>
                 <TextField
                   required

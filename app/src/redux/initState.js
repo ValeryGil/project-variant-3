@@ -2,8 +2,7 @@ const initState = {
   posts: [],
   search: '',
   person: {},
-  likes: [],
-  detailPost: [],
+  detailPost: {},
 }
 
 export default initState

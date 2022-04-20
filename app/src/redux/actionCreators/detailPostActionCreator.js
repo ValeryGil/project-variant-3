@@ -1,5 +1,5 @@
 import { API_TOKEN } from "../../tokens";
-import { DETAIL_POST } from "../types/detailPostTypes";
+import { DETAIL_POST, EDIT_POST } from "../types/detailPostTypes";
 
 export const getDetailPost = (post) => ({
   type: DETAIL_POST,
@@ -15,4 +15,23 @@ export const getDetailPostQuery = (_id) => async (dispatch) => {
   }})
   const postFromApi = await response.json()
   dispatch(getDetailPost(postFromApi))
+}
+
+export const editPost = (newPostObject) => ({
+  type: EDIT_POST,
+  payload: newPostObject,
+})
+
+export const editPostQuery = (_id, formData, closeModal) => async (dispatch) => {
+  const response = await fetch(`https://api.react-learning.ru/posts/${_id}`, {
+    method: 'PATCH',
+    headers: {
+      authorization: `Bearer ${API_TOKEN}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData),
+  })
+  const updatedPostFromServer = await response.json()
+  dispatch(editPost(updatedPostFromServer))
+  closeModal()
 }
